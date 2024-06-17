@@ -1,0 +1,35 @@
+/* src/components/Home.css */
+
+.logotipo {
+  width: 120px; /* Ajusta el tamaño del logo según sea necesario */
+  height: auto;
+}
+
+.carrete {
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.carrete-item {
+  text-align: center;
+}
+
+.carrete-item img {
+  max-width: 100%; /* La imagen ocupará como máximo el ancho del contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid-item {
+  text-align: center;
+}
+
+.grid-item img {
+  max-width: 60%; /* La imagen ocupará como máximo el ancho del contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+}
