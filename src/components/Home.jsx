@@ -58,7 +58,7 @@ function Home() {
     <div>
       <header>
         <div className="contenedor">
-          <img className="logotipo" src="./assets/img/logo.png"></img>
+          <img className="logotipo" src="./src/assets/img/logo.png"></img>
           <nav>
             <a href="#" className="activo">Inicio</a>
             <a href="#">Series</a>
