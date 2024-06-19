@@ -12,7 +12,7 @@ function Home() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await tmdbApi.get('/movie/popular');
+        const response = await tmdbApi.get('/discover/movie?api_key=b5632a42ffa490dea865a5954ea71a73&with_genres=27');
         setMovies(response.data.results);
         
         // Selecciona una película aleatoria para la portada

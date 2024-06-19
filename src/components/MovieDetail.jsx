@@ -1,7 +1,11 @@
 // src/components/MovieDetail.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import tmdbApi from '../api';
+import axios from 'axios';
+import './MovieDetail.css';
+
+const API_KEY = 'YOUR_API_KEY_HERE';
+const API_URL = 'https://api.themoviedb.org/3';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -9,8 +13,12 @@ function MovieDetail() {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const response = await tmdbApi.get(`/movie/${id}`);
-      setMovie(response.data);
+      try {
+        const response = await axios.get(`${API_URL}/movie/${id}?api_key=${API_KEY}`);
+        setMovie(response.data);
+      } catch (error) {
+        console.error("Error fetching the movie:", error);
+      }
     };
 
     fetchMovie();
