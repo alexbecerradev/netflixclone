@@ -1,18 +1,26 @@
-// src/components/Home.js
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import tmdbApi from '../api';
-import './Home.css'; // Importamos los estilos del carrusel y la cuadrícula
+import './Home.css'; // Estilos del carrusel y la cuadrícula
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function Home() {
   const [movies, setMovies] = useState([]);
+  const [featuredMovie, setFeaturedMovie] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await tmdbApi.get('/movie/popular');
-      setMovies(response.data.results);
+      try {
+        const response = await tmdbApi.get('/movie/popular');
+        setMovies(response.data.results);
+        
+        // Selecciona una película aleatoria para la portada
+        const randomIndex = Math.floor(Math.random() * response.data.results.length);
+        setFeaturedMovie(response.data.results[randomIndex]);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
     };
 
     fetchMovies();
@@ -58,14 +66,21 @@ function Home() {
           </nav>
         </div>
       </header>
-      <div className="pelicula-principal">
-        <div className="contenedor">
-          <h1 className="titulo">Título de la Película</h1>
-          <p className="descripcion">Descripción de la película...</p>
-          <button className="boton"><i className="fas fa-play"></i>Reproducir</button>
-          <button className="boton">Más información</button>
+      {featuredMovie && (
+        <div
+          className="pelicula-principal"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0, 0, 0, .50) 100%), url(https://image.tmdb.org/t/p/w1280${featuredMovie.backdrop_path})`
+          }}
+        >
+          <div className="contenedor">
+            <h1 className="titulo">{featuredMovie.title}</h1>
+            <p className="descripcion">{featuredMovie.overview}</p>
+            <button className="boton"><i className="fas fa-play"></i>Reproducir</button>
+            <button className="boton">Más información</button>
+          </div>
         </div>
-      </div>
+      )}
       <h1>Top Películas</h1>
       <Slider {...settings} className="carrete">
         {movies.map((movie) => (
